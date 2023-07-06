@@ -10,27 +10,53 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
    const [show, setShow] = useState(false);
    const [newAuthor, setNewAuthor] = useState('');
    const [newReviewText, setNewReviewText] = useState('');
+   const [validName, setValidName] = useState(false); // for form validation
+   const [validReview, setValidReview] = useState(false); // for form validation
    const handleClose = () => {
       setNewAuthor('');
       setNewReviewText('');
+      setValidName(false);
+      setValidReview(false);
       setShow(false);
    };
    const handleShow = () => setShow(true);
    const [newRating, setNewRating] = useState(1);
 
    const handleReviewChange = e => {
+      validateReview(e);
       setNewReviewText(e.target.value);
    };
    const handleAuthorChange = e => {
+      validateName(e);
       setNewAuthor(e.target.value);
    };
    const handleRatingChange = rating => {
-      console.log(`rating: ${rating}`);
+      // console.log(`rating: ${rating}`);
       setNewRating(rating);
+   };
+
+   const validateName = e => {
+      if (e.target.value.length == 0) {
+         setValidName(false);
+      } else {
+         setValidName(true);
+      }
+   };
+   const validateReview = e => {
+      if (e.target.value.length == 0) {
+         setValidReview(false);
+      } else {
+         setValidReview(true);
+      }
    };
 
    const handleSave = e => {
       e.preventDefault();
+
+      if (newAuthor.length === 0 || newReviewText.length === 0) {
+         return;
+      }
+
       const newID = Math.max(...reviewList.map(review => review.id)) + 1;
       const newReviewObj = {
          movieID: movieID,
@@ -42,6 +68,10 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
       addNewReview(newReviewObj);
       setNewAuthor('');
       setNewReviewText('');
+      setValidName(false);
+      setValidReview(false);
+      // disable the save button
+      document.getElementById('save-review').disabled = true;
    };
 
    return (
@@ -67,7 +97,18 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
             <Modal.Body className='bg-dark text-warning'>
                {/* REVIEW-FORM */}
                <Form className='border-bottom'>
-                  <label htmlFor='author-name'>Your Name</label>
+                  <label htmlFor='author-name'>
+                     Your Name
+                     {!validName ? (
+                        <span className='fst-italic fw-light text-danger'>
+                           {' '}
+                           Please enter Name.
+                        </span>
+                     ) : (
+                        <span></span>
+                     )}
+                  </label>
+
                   <input
                      id='author-name'
                      type='text'
@@ -76,8 +117,20 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                      className='bg-dark text-warning form-control'
                      value={newAuthor}
                      onChange={handleAuthorChange}
+                     required
                   />
-                  <label htmlFor='new-review'>Your Review</label>
+                  <label htmlFor='new-review'>
+                     Your Review
+                     {!validReview ? (
+                        <span className='fst-italic fw-light text-danger'>
+                           {' '}
+                           Please enter Review.
+                        </span>
+                     ) : (
+                        <span></span>
+                     )}
+                  </label>
+
                   <textarea
                      id='new-review'
                      placeholder='Your Review Here'
@@ -85,6 +138,7 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                      className='bg-dark text-warning form-control'
                      value={newReviewText}
                      onChange={handleReviewChange}
+                     required
                   />
                   <Form.Group className='mb-3' controlId='starRating'>
                      <Form.Label>Your Rating</Form.Label>
@@ -98,6 +152,7 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                         Close
                      </Button>
                      <button
+                        id='save-review'
                         className='ms-3 btn btn-outline-warning'
                         type='submit'
                         onClick={handleSave}>
