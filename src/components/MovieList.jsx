@@ -78,7 +78,6 @@ function MovieList() {
          review:
             'A thrilling superhero ensemble! The chemistry between the characters is fantastic, and the visual effects are mind-blowing.',
       },
-
       {
          movieID: 1,
          id: 4,

@@ -22,6 +22,9 @@ function Movie({
       for (let i = 0; i < filteredList.length; i++) {
          totalStars += filteredList[i].stars;
       }
+      if (filteredList.length === 0) {
+         return 'No Reviews Yet';
+      }
       return (Math.round((totalStars / filteredList.length) * 10) / 10).toFixed(1);
    }
    return (
