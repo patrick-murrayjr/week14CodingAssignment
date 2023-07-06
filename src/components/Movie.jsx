@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import ReviewForm from './ReviewForm';
 
-function MovieCard({
+function Movie({
    id,
    image,
    title,
@@ -41,7 +41,9 @@ function MovieCard({
                </div>
 
                {/* MOVIE-INFORMATION*/}
-               <Card.Subtitle className='fw-light fs-5  mb-3'>{synopsis}</Card.Subtitle>
+               <Card.Subtitle className='fw-light fst-italic mb-3'>
+                  {synopsis}
+               </Card.Subtitle>
                <Card.Text className='fw-bold'>
                   Avg Audience Score:{' '}
                   <span className='fw-bold text-warning'>{getaverageRating(id)}</span>
@@ -63,4 +65,4 @@ function MovieCard({
       </Col>
    );
 }
-export default MovieCard;
+export default Movie;

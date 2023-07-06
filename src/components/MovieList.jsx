@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import MovieCard from './MovieCard';
+import Movie from './Movie';
 
 // Imgage imports
 import imgAvengers from '../assets/images/The-Avengers-md.jpg';
@@ -220,11 +220,11 @@ function MovieList() {
    };
 
    return (
-      <Container className='bg-dark mt-3'>
+      <Container className='bg-dark mt-1'>
          <div className='row'>
             {/* Map over the list of Movies and display a Movie Card for each Movie */}
             {movieList.map(movie => (
-               <MovieCard
+               <Movie
                   key={movie.id}
                   id={movie.id}
                   title={movie.title}
