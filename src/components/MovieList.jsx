@@ -221,7 +221,6 @@ function MovieList() {
       setReviewList([...reviewList, newReview]);
    };
 
-   // document the return
    return (
       <Container className='bg-dark mt-1'>
          <div className='row'>
