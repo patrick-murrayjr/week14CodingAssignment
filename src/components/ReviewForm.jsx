@@ -65,14 +65,15 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
    const handleSave = e => {
       e.preventDefault();
 
-      // This code is used to check if the author and review text are valid. If they are, then the code will make a new review.
-
+      // This code is used to check if the author and review text are valid. If they are, then the form can be submitted.
       if (newAuthor.length === 0 || newReviewText.length === 0) {
          return;
       }
 
-      // This code adds a new review to the list of reviews for a movie. It finds the maximum ID of any review in the list and adds 1 to that to get the ID for the new review. It then creates a new review object with the movieID, ID, author, stars, and review text. It then adds this new review object to the review list.
-
+      // This code adds a new review to the list of reviews for a movie.
+      // It finds the maximum ID of any review in the list and adds 1 to that to get the ID for the new review.
+      // It then creates a new review object with the movieID, ID, author, stars, and review text.
+      // It then adds this new review object to the review list.
       const newID = Math.max(...reviewList.map(review => review.id)) + 1;
       const newReviewObj = {
          movieID: movieID,
@@ -146,7 +147,6 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                         <span></span>
                      )}
                   </label>
-
                   <textarea
                      disabled={isFormDisabled}
                      id='new-review'
@@ -168,14 +168,15 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                         onClick={handleClose}>
                         Close
                      </Button>
-                     <button
+                     <Button
                         disabled={isFormDisabled}
                         id='save-review'
-                        className='ms-3 btn btn-outline-warning'
+                        className='ms-3'
+                        variant='outline-warning'
                         type='submit'
                         onClick={handleSave}>
                         Save Review
-                     </button>
+                     </Button>
                   </div>
                </Form>
                {/* REVIEW-LIST */}

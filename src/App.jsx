@@ -5,7 +5,7 @@ import MovieList from './components/MovieList';
 
 function App() {
    return (
-      <div className='bg-dark'>
+      <div className='bg-dark app-height'>
          <Navigaton />
          <MovieList />
       </div>
