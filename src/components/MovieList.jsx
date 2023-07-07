@@ -206,7 +206,10 @@ function MovieList() {
    // movieID, author, stars, review
    // and adds it to the reviewList array
    const addNewReview = ({ movieID, author, stars, review }) => {
+      // This code sets the ID of the new review to the maximum ID in the list of reviews plus one. This ensures that no two reviews have the same ID.
       const newID = Math.max(...reviewList.map(review => review.id)) + 1;
+
+      // This code creates a new review object with the given parameters, and adds it to the reviews array of the given movie object.
       const newReview = {
          movieID: movieID,
          id: newID,
@@ -218,6 +221,7 @@ function MovieList() {
       setReviewList([...reviewList, newReview]);
    };
 
+   // document the return
    return (
       <Container className='bg-dark mt-1'>
          <div className='row'>

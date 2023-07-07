@@ -10,10 +10,12 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
    const [show, setShow] = useState(false);
    const [newAuthor, setNewAuthor] = useState('');
    const [newReviewText, setNewReviewText] = useState('');
+   const [newRating, setNewRating] = useState(1);
    const [validName, setValidName] = useState(false); // for form validation
    const [validReview, setValidReview] = useState(false); // for form validation
-   const [isFormDisabled, setisFormDisabled] = useState(false);
+   const [isFormDisabled, setisFormDisabled] = useState(false); // for disable form after submitting
 
+   // This function is used to close the modal and reset all the fields in the modal to their default values.
    const handleClose = () => {
       setNewAuthor('');
       setNewReviewText('');
@@ -21,26 +23,29 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
       setValidReview(false);
       setShow(false);
    };
+   // This function is used to open the modal and re-enable the form.
    const handleShow = () => {
       setShow(true);
       //re-enable the form
       setisFormDisabled(false);
    };
-   const [newRating, setNewRating] = useState(1);
 
+   // This function is used to handle changes to the review text field.
    const handleReviewChange = e => {
       validateReview(e);
       setNewReviewText(e.target.value);
    };
+   // This function is used to handle changes to the author name field.
    const handleAuthorChange = e => {
       validateName(e);
       setNewAuthor(e.target.value);
    };
+   // This function is used to handle changes to the star rating field.
    const handleRatingChange = rating => {
       // console.log(`rating: ${rating}`);
       setNewRating(rating);
    };
-
+   // This function is used to validate the author name field.
    const validateName = e => {
       if (e.target.value.length == 0) {
          setValidName(false);
@@ -48,6 +53,7 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
          setValidName(true);
       }
    };
+   // This function is used to validate the review text field.
    const validateReview = e => {
       if (e.target.value.length == 0) {
          setValidReview(false);
@@ -55,13 +61,17 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
          setValidReview(true);
       }
    };
-
+   // This function is used to handle the save button click.
    const handleSave = e => {
       e.preventDefault();
+
+      // This code is used to check if the author and review text are valid. If they are, then the code will make a new review.
 
       if (newAuthor.length === 0 || newReviewText.length === 0) {
          return;
       }
+
+      // This code adds a new review to the list of reviews for a movie. It finds the maximum ID of any review in the list and adds 1 to that to get the ID for the new review. It then creates a new review object with the movieID, ID, author, stars, and review text. It then adds this new review object to the review list.
 
       const newID = Math.max(...reviewList.map(review => review.id)) + 1;
       const newReviewObj = {
@@ -114,7 +124,6 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                         <span></span>
                      )}
                   </label>
-
                   <input
                      disabled={isFormDisabled}
                      id='author-name'

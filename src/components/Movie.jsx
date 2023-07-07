@@ -22,6 +22,9 @@ function Movie({
       for (let i = 0; i < filteredList.length; i++) {
          totalStars += filteredList[i].stars;
       }
+
+      //This code checks the length of the filtered list and if it is empty, then the string 'No Reviews Yet' is returned.
+
       if (filteredList.length === 0) {
          return 'No Reviews Yet';
       }
