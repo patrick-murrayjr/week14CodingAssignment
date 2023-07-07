@@ -12,6 +12,8 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
    const [newReviewText, setNewReviewText] = useState('');
    const [validName, setValidName] = useState(false); // for form validation
    const [validReview, setValidReview] = useState(false); // for form validation
+   const [isFormDisabled, setisFormDisabled] = useState(false);
+
    const handleClose = () => {
       setNewAuthor('');
       setNewReviewText('');
@@ -19,7 +21,11 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
       setValidReview(false);
       setShow(false);
    };
-   const handleShow = () => setShow(true);
+   const handleShow = () => {
+      setShow(true);
+      //re-enable the form
+      setisFormDisabled(false);
+   };
    const [newRating, setNewRating] = useState(1);
 
    const handleReviewChange = e => {
@@ -70,8 +76,8 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
       setNewReviewText('');
       setValidName(false);
       setValidReview(false);
-      // disable the save button
-      document.getElementById('save-review').disabled = true;
+      // disable the form
+      setisFormDisabled(true);
    };
 
    return (
@@ -110,6 +116,7 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                   </label>
 
                   <input
+                     disabled={isFormDisabled}
                      id='author-name'
                      type='text'
                      placeholder='John Doe'
@@ -132,6 +139,7 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                   </label>
 
                   <textarea
+                     disabled={isFormDisabled}
                      id='new-review'
                      placeholder='Your Review Here'
                      rows='3'
@@ -152,6 +160,7 @@ function ReviewForm({ reviewList, movieID, addNewReview }) {
                         Close
                      </Button>
                      <button
+                        disabled={isFormDisabled}
                         id='save-review'
                         className='ms-3 btn btn-outline-warning'
                         type='submit'
