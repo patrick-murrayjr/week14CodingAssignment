@@ -11,15 +11,13 @@ const StarRating = props => {
          {[...Array(5)].map((_star, index) => {
             const ratingValue = index + 1;
             return (
-               <label key={index}>
+               <label key={index} htmlFor='input'>
                   <input
                      type='radio'
                      name='rating'
                      value={ratingValue}
                      onClick={() => {
                         setRating(ratingValue);
-                        console.log(ratingValue);
-                        console.log(props.changeRating);
                         props.changeRating(ratingValue);
                      }}
                   />
